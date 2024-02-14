@@ -20,10 +20,14 @@ class Blog(BaseModel):
 # In-memory database
 blogs_db: Dict[int, Blog] = {}
 
+blog_counter = 0
+
 @app.post("/blogs/", response_model=Blog)
 def create_blog(blog: Blog):
-    blog_id = len(blogs_db) + 1
-    blogs_db[blog_id] = blog
+    # count = count + 1
+    global blog_counter
+    blog_counter +=1
+    blogs_db[blog_counter] = blog
     return blog
 
 @app.get("/blogs/{blog_id}", response_model=Blog)
